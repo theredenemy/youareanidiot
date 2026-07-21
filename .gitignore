@@ -2,3 +2,4 @@ test1.py
 idiot.spec
 /build
 /dist
+*.spec

@@ -18,7 +18,7 @@ def load_img(img_file, width, height):
 
 
 
-def create_window(root=None):
+def create_window(root=None, w=357, h=322, x_off=10, y_off=10,  title="Idiot!"):
     if root is None:
         window = tk.Tk()
         main_root = window
@@ -32,15 +32,11 @@ def create_window(root=None):
     except AttributeError:
         youareanidiot_audio = pygame.mixer.Sound(os.path.join("resources", "youare.mp3")) 
     
-    window.title("Idiot!")
-    w = 357
-    h = 322
+    window.title(title)
     screen_width = window.winfo_screenwidth()
     screen_height = window.winfo_screenheight()
     x_pos = (screen_width - w) // 2
     y_pos = (screen_height - h) // 2
-    x_off = 10
-    y_off = 10
     img1 = load_img("0001.png", width=w, height=h)
     img2 = load_img("0005.png", width=w, height=h)
     idiot_label = tk.Label(window, width=w, height=h)
@@ -96,14 +92,13 @@ def create_window(root=None):
 def start():
     root = tk.Tk()
     root.withdraw()
-    for i in range(2):
-        create_window(root=root)
+    
+    create_window(root=root, w=800, h=600, x_off=5, y_off=5, title="You Are An Idiot!")
     
     root.mainloop()
 
 def main():
     start()
-    
 
 if __name__ == "__main__":
     main()
