@@ -81,6 +81,7 @@ def create_window(root=None, w=357, h=322, x_off=10, y_off=10,  title="Idiot!"):
     def on_close():
         for i in range(3):
             create_window(root=main_root)
+        youareanidiot_audio.stop()
         window.destroy()
         
     window.protocol("WM_DELETE_WINDOW", on_close)
