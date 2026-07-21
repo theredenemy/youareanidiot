@@ -41,6 +41,7 @@ def create_window(root=None, w=357, h=322, x_off=10, y_off=10,  title="Idiot!"):
     img2 = load_img("0005.png", width=w, height=h)
     idiot_label = tk.Label(window, width=w, height=h)
     idiot_label.pack()
+    window.focus()
     def animate(state=False):
         img_set = img2 if state else img1
         idiot_label.config(image=img_set)
@@ -77,6 +78,7 @@ def create_window(root=None, w=357, h=322, x_off=10, y_off=10,  title="Idiot!"):
             newYdn()
         
         window.geometry(f"{w}x{h}+{x_pos}+{y_pos}")
+        
         window.after(16, playBall)
     def on_close():
         for i in range(3):
