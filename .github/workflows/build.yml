@@ -11,7 +11,18 @@ permissions:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+        include:
+          - os: windows-latest
+            output_name: youareanidiot_${{ github.ref_name }}.exe
+            artifact_name: youareanidiot-Windows
+          - os: ubuntu-latest
+            output_name: youareanidiot_${{ github.ref_name }}
+            artifact_name: youareanidiot-Linux
     steps:
     - uses: actions/checkout@v4
     
@@ -41,13 +52,13 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: youareanidiot-Windows
-        path: dist/youareanidiot_${{ github.ref_name }}.exe
-
+        name: ${{ matrix.artifact_name }}
+        path: dist/${{ matrix.output_name }}
+      
     - name: Upload to Release
       uses: softprops/action-gh-release@v1
-      if: startsWith(github.ref, 'refs/tags/')
+      if: startsWith(github.ref, 'refs/tags/v')
       with:
-        files: dist/youareanidiot_${{ github.ref_name }}.exe
+        files: dist/${{ matrix.output_name }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
