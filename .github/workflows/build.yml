@@ -45,7 +45,7 @@ jobs:
       uses: crazy-max/ghaction-upx@v4.0.0
       with:
         install-only: true
-    - name: Build executable (Windows)
+    - name: Build executable
       run: |
         pyinstaller --onefile --windowed --add-data "resources:resources" --name youareanidiot_${{ github.ref_name }} idiot.py
     
