@@ -50,9 +50,16 @@ jobs:
       uses: crazy-max/ghaction-upx@v4.0.0
       with:
         install-only: true
-    - name: Build executable
+    - name: Build executable (Windows)
+      if: matrix.os == 'windows-latest'
       run: |
         pyinstaller --onefile --windowed --add-data "resources:resources" --name youareanidiot_${{ github.ref_name }} idiot.py
+    
+    - name: Build executable (Linux)
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        pyinstaller --onefile --windowed --add-data "resources:resources" --hidden-import=PIL._tkinter_finder --collect-all PIL --name youareanidiot_${{ github.ref_name }} idiot.py
+    
     
     - name: Upload artifact
       uses: actions/upload-artifact@v4
