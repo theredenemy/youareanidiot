@@ -30,6 +30,11 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: '3.14'
+    - name: Install tkinter (Linux)
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt update
+        sudo apt-get install python3-tk -y
     - name: Compile Pyinstaller Bootloader
       run: |
         git clone https://github.com/pyinstaller/pyinstaller.git
