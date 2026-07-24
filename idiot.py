@@ -1,14 +1,12 @@
 import os
 import tkinter as tk
+import tkinter.messagebox as msgbox
 import pygame
-import threading
 import sys
 import random
-import math
-import time
 from PIL import Image, ImageTk
 
-
+close_attempts = 0
 def load_img(img_file, width, height):
     try:
         img = ImageTk.PhotoImage(Image.open(os.path.join(sys._MEIPASS, "resources", img_file)).resize(size=(width, height)))
@@ -18,7 +16,7 @@ def load_img(img_file, width, height):
 
 
 
-def create_window(root=None, w=357, h=322, x_off=10, y_off=10,  title="Idiot!"):
+def create_window(root=None, w=357, h=322, x_off=10, y_off=10, title="Idiot!"):
     if root is None:
         window = tk.Tk()
         main_root = window
@@ -81,11 +79,17 @@ def create_window(root=None, w=357, h=322, x_off=10, y_off=10,  title="Idiot!"):
         
         window.after(16, playBall)
     def on_close():
+        global close_attempts
+        print(close_attempts)
         for i in range(3):
             create_window(root=main_root)
         youareanidiot_audio.stop()
         window.destroy()
-        
+        if close_attempts >= 3:
+            msgbox.showwarning("Message!", "You are an idiot!")
+            close_attempts = 0
+        else:
+            close_attempts += 1
     window.protocol("WM_DELETE_WINDOW", on_close)
 
     animate()
