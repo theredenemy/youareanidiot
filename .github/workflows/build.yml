@@ -58,7 +58,7 @@ jobs:
     - name: Build executable (Linux)
       if: matrix.os == 'ubuntu-latest'
       run: |
-        pyinstaller --onefile --windowed --add-data "resources:resources" --hidden-import=PIL._tkinter_finder --collect-all PIL --name youareanidiot_${{ github.ref_name }} --clean idiot.py
+        pyinstaller --onefile --windowed --add-data "resources:resources" --hidden-import=PIL._tkinter_finder --collect-all PIL --noupx --name youareanidiot_${{ github.ref_name }} --clean idiot.py
     
     
     - name: Upload artifact
