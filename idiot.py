@@ -80,14 +80,13 @@ def create_window(root=None, w=357, h=322, x_off=10, y_off=10, title="Idiot!"):
         window.after(16, playBall)
     def on_close():
         global close_attempts
-        print(close_attempts)
         for i in range(3):
             create_window(root=main_root)
         youareanidiot_audio.stop()
         window.destroy()
         if close_attempts >= 3:
-            msgbox.showwarning("Message!", "You are an idiot!")
             close_attempts = 0
+            msgbox.showwarning("Message!", "You are an idiot!")
         else:
             close_attempts += 1
     window.protocol("WM_DELETE_WINDOW", on_close)
